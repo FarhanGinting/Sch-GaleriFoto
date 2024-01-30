@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Album;
+use App\Models\Foto;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class AlbumController extends Controller
 {
@@ -12,7 +16,8 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        
+        $album = Album::with(['user', 'fotos'])->withCount('fotos')->get();
+        return view('galleryfoto.index', ['albumList' => $album]);
     }
 
     /**
@@ -20,7 +25,9 @@ class AlbumController extends Controller
      */
     public function create()
     {
-        //
+        $albumCB = Album::select('id', 'nama')->get();
+        $UserCB = User::select('id', 'name')->get();
+        return view('galleryfoto.add', ['albumCB' => $albumCB, 'userCB' => $UserCB]);
     }
 
     /**
@@ -28,7 +35,21 @@ class AlbumController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $save_url = '';
+        if ($request->file('lokasi')) {
+            $manager = new ImageManager(new Driver());
+            $extension = $request->file('lokasi')->getClientOriginalExtension();
+            $newName = $request->name . '-' . now()->timestamp . '.' . $extension;
+            $img = $manager->read($request->file('lokasi'));
+            $img = $img->resize(1920, 1080);
+
+            $img->toJpeg(80)->save(base_path('public/uploads/perjalanan' . $newName));
+            $save_url = 'uploads/perjalanan' . $newName;
+        }
+        $request['lokasi'] = $save_url;
+        $Foto = Foto::create($request->all());
+
+        return redirect('/');
     }
 
     /**

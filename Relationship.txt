@@ -1,0 +1,58 @@
+1. **One to One (Satu ke Satu):**
+   - **Fungsi:** Hubungan di mana satu rekaman pada satu tabel terkait dengan satu rekaman pada tabel lain.
+   - **Contoh:** Relasi antara tabel `User` dan `Profile` di mana setiap pengguna memiliki satu profil.
+        php
+            public function profile()
+            {
+                return $this->hasOne(Profile::class);
+            }
+
+2. **One to Many (Satu ke Banyak):**
+   - **Fungsi:** Hubungan di mana satu rekaman pada satu tabel memiliki banyak rekaman terkait pada tabel lain.
+   - **Contoh:** Relasi antara tabel `Post` dan `Comment` di mana satu postingan dapat memiliki banyak komentar.
+
+        php
+            public function comments()
+            {
+                return $this->hasMany(Comment::class);
+            }
+
+3. **One to Many (Inverse) / Belongs To (Mengakui Kepunyaan):**
+   - **Fungsi:** Kebalikan dari relasi One to Many. Sebuah rekaman pada satu tabel milik satu rekaman di tabel lain.
+   - **Contoh:** Relasi antara tabel `Comment` dan `Post` di mana setiap komentar dimiliki oleh satu postingan.
+
+        php
+            public function post()
+            {
+                return $this->belongsTo(Post::class);
+            }
+
+4. **Has One of Many (Memiliki Satu dari Banyak):**
+   - **Fungsi:** Hubungan di mana satu rekaman memiliki satu rekaman terkait di tabel lain melalui tabel perantara.
+   - **Contoh:** Relasi antara tabel `User` dan `Phone` di mana setiap pengguna memiliki satu nomor telepon yang terkait melalui tabel `user_phone`.
+
+        php
+            public function phone()
+            {
+                return $this->hasOneThrough(Phone::class, UserPhone::class);
+            }
+
+5. **Has One Through (Memiliki Satu Melalui):**
+   - **Fungsi:** Hubungan di mana satu rekaman memiliki satu rekaman terkait di tabel lain melalui dua tabel perantara.
+   - **Contoh:** Relasi antara tabel `Country` dan `Post` di mana setiap negara memiliki satu postingan melalui tabel perantara `User`.
+
+        php
+            public function post()
+            {
+                return $this->hasOneThrough(Post::class, User::class);
+            }
+
+6. **Has Many Through (Memiliki Banyak Melalui):**
+   - **Fungsi:** Hubungan di mana satu rekaman memiliki banyak rekaman terkait di tabel lain melalui dua tabel perantara.
+   - **Contoh:** Relasi antara tabel `Country` dan `Comment` di mana setiap negara memiliki banyak komentar melalui tabel perantara `Post`.
+
+        php
+            public function comments()
+            {
+                return $this->hasManyThrough(Comment::class, Post::class);
+            }

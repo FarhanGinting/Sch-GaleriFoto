@@ -21,6 +21,9 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
+     protected $table = 'users';
+
     protected $fillable = [
         'name',
         'email',
@@ -50,7 +53,24 @@ class User extends Authenticatable
     ];
 
     
+    public function likefoto()
+    {
+        return $this->hasMany(Likefoto::class, 'UserID', 'id');
+    }
 
-    
+    public function album()
+    {
+        return $this->hasMany(Album::class, 'UserID', 'id');
+    }
+
+    public function komentarfoto()
+    {
+        return $this->hasMany(Komentarfoto::class, 'UserID', 'id');
+    }
+
+    public function foto()
+    {
+        return $this->hasMany(Foto::class, 'UserID', 'id');
+    }
 
 }

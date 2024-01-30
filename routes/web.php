@@ -17,4 +17,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::resource('/', LikeController::class);
+Route::resource('/', AlbumController::class);
+

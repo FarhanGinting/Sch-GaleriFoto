@@ -24,5 +24,18 @@ class Foto extends Model
         'UserID',
     ];
 
+    public function likefoto()
+    {
+        return $this->hasMany(Likefoto::class, 'FotoID', 'id');
+    }
     
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'UserID', 'id');
+    }
+
+    public function album()
+    {
+        return $this->belongsTo(Album::class, 'AlbumID', 'id');
+    }
 }

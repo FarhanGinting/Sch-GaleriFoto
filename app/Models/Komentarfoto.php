@@ -20,7 +20,10 @@ class Komentarfoto extends Model
         'tanggal',
     ];
 
-  
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'UserID', 'id');
+    }
 
 
     

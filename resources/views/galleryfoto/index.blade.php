@@ -6,39 +6,38 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6">
-                    
+
                     <h1 class="jumbo-header mb-30">
-                        Catat Perjalanan<br>
+                        Simpan Foto<br>
                         Cepat & Mudah
                     </h1>
                     <p class="paragraph mb-30">
-                        Catat Perjalanan Tanpa Batas, Cepat, dan <br>Mudah Bersama Layanan Kami!
-                        
+                        Simpan Foto Tanpa Batas, Cepat, dan <br>Mudah Bersama Layanan Kami!
+
                     </p>
-                    <p class="mb-50"><a href="" class="btn btn-primary">Buat Catatan
-                            Perjalanan</a></p>
+                    <p class="mb-50"><a href="{{ route('create') }}" class="btn btn-primary">Upload Foto</a></p>
                     <div class="row stats text-center">
                         <div class="col-lg-4 item">
                             <h3 class="big-header">
-                                @foreach ($LikeList as $key => $item)
+                                @foreach ($albumList as $key => $item)
                                 @endforeach
-                                {{ count($LikeList) }}
+                                {{ count($albumList) }}
                             </h3>
                             <p class="paragraph">
-                                Catatan
+                                Foto
+                            </p>
+                        </div>
+                        <div class="col-lg-4 item">
+                            <h3 class="big-header">
+                                Album
+                            </h3>
+                            <p class="paragraph">
+                                {{-- {{ Auth::user()->nama }} --}}
                             </p>
                         </div>
                         <div class="col-lg-4 item">
                             <h3 class="big-header">
                                 Welcome
-                            </h3>
-                            <p class="paragraph">
-                                 {{-- {{ Auth::user()->nama }} --}}
-                            </p>
-                        </div>
-                        <div class="col-lg-4 item">
-                            <h3 class="big-header">
-                                Email
                             </h3>
                             <p class="paragraph">
                                 {{-- {{ Auth::user()->email }} --}}
@@ -59,12 +58,11 @@
                 <div class="col-lg-12">
                     <img src="{{ asset('images/star.png') }}" height="42" alt="" class="mb-16">
                     <h3 class="big-header">
-                        Perjalanan Anda
+                        Foto Yang Anda Suka
                     </h3>
                     <p class="paragraph">
-                        Perjalanan Terbanyak Anda: Merentasi Batas, Menjelajahi Keindahan Dunia Bersama Kenangan Tak
-                        Terlupakan!
-                        {{ $LikeList->foto }}
+                        Beberapa foto yang anda suka
+
                     </p>
                 </div>
             </div>
@@ -78,21 +76,20 @@
             </div>
             <div class="row">
 
-                {{-- @foreach ($LikeList as $item)
+                @foreach ($albumList as $item)
                     <div class="col-lg-3">
                         <div class="item">
-
+                            
                             <a href="">
 
                                 @if ($item->image != '')
-                                    <img src="{{$item->image }}" alt=""
-                                        class="img-fluid" >
+                                    <img src="{{ $item->image }}" alt="" class="img-fluid">
                                 @else
                                     <img src="{{ asset('images/image-not.png') }}" alt="" class="img-fluid">
                                 @endif
                             </a>
                             <div class="info">
-                                <a href="/details/{{ $item->id }}/{{ Str::slug($item->nama, '-') }}">
+                                <a href="/details/{{ $item->id }}">
                                     <h3 class="small-header mb-2">
                                         {{ $item->nama }}
                                     </h3>
@@ -101,9 +98,7 @@
                                     <div class="location d-flex flex-row ">
                                         <img src="{{ asset('images/ic_loc.svg') }}" height="20" alt="">
                                         <p class="small-paragraph mb-0">
-                                            {{ $item->lokasi }} - @isset($item->suhu)
-                                                🌡️ {{ $item->suhu }}
-                                            @endisset
+                                                {{ $item->user->namalengkap }} - {{ $item->fotos_count }} Foto
                                         </p>
                                     </div>
                                     <div class="price">
@@ -117,7 +112,7 @@
                             </div>
                         </div>
                     </div>
-                @endforeach --}}
+                @endforeach
             </div>
         </div>
     </section>

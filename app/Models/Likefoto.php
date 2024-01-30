@@ -19,5 +19,17 @@ class Likefoto extends Model
         'tanggal',
     ];
 
+    //many to one relationship
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'UserID', 'id');
+    }
+
+    public function foto()
+    {
+        return $this->belongsTo(Foto::class, 'FotoID', 'id');
+    }
+
+    
     
 }

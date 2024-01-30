@@ -12,7 +12,7 @@ class LikeController extends Controller
      */
     public function index()
     {
-        $like = Likefoto::with('foto')->get();
+        $like = Likefoto::with(['user', 'foto'])->get();
         return view('galleryfoto.index', ['LikeList' => $like]);
     }
 
