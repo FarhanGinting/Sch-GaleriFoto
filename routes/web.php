@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\FotoController;
+use App\Http\Controllers\LikeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +16,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('galleryfoto.index');
-});
+
+Route::resource('/', LikeController::class);
