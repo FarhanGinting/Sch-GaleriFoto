@@ -17,5 +17,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::resource('/', AlbumController::class);
-
+Route::resource('/', FotoController::class);
+Route::get('/show/{id}', [FotoController::class, 'show']);

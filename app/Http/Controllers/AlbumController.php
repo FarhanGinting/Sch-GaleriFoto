@@ -7,6 +7,7 @@ use App\Models\Foto;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManager;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Drivers\Gd\Driver;
 
 class AlbumController extends Controller
@@ -16,7 +17,7 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        $album = Album::with(['user', 'fotos'])->withCount('fotos')->get();
+        $album = Album::with(['user'])->withCount('fotos')->get();
         return view('galleryfoto.index', ['albumList' => $album]);
     }
 
@@ -36,15 +37,15 @@ class AlbumController extends Controller
     public function store(Request $request)
     {
         $save_url = '';
-        if ($request->file('lokasi')) {
+        if ($request->file('foto')) {
             $manager = new ImageManager(new Driver());
-            $extension = $request->file('lokasi')->getClientOriginalExtension();
-            $newName = $request->name . '-' . now()->timestamp . '.' . $extension;
-            $img = $manager->read($request->file('lokasi'));
+            $extension = $request->file('foto')->getClientOriginalExtension();
+            $newName = $request->AlbumID . '-' . now()->timestamp . '.' . $extension;
+            $img = $manager->read($request->file('foto'));
             $img = $img->resize(1920, 1080);
 
-            $img->toJpeg(80)->save(base_path('public/uploads/perjalanan' . $newName));
-            $save_url = 'uploads/perjalanan' . $newName;
+            $img->toJpeg(80)->save(base_path('public/uploads/perjalanan'. $newName));
+            $save_url = 'uploads/perjalanan/'. $newName;
         }
         $request['lokasi'] = $save_url;
         $Foto = Foto::create($request->all());
@@ -55,9 +56,10 @@ class AlbumController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $albumDetails = Album::with(['user', 'fotos'])->findOrFail($id);
+        return view('galleryfoto.details', ['albumDetails' => $albumDetails]);
     }
 
     /**

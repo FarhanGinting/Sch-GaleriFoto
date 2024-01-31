@@ -1,5 +1,5 @@
 @extends('layouts.bone')
-@section('title', 'Dashboard')
+@section('title', 'Add New')
 @section('content')
     @include('components.navbar')
     <section class="section">
@@ -36,7 +36,7 @@
 
                             <div class="col-12">
                                 <label class="form-label">Lokasi Foto</label>
-                                <input type="file" name="lokasi" class="form-control" id="lokasi">
+                                <input type="file" name="foto" class="form-control" id="foto">
                             </div>
 
                             <div class="col-12">

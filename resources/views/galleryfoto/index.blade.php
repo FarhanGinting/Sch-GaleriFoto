@@ -19,20 +19,19 @@
                     <div class="row stats text-center">
                         <div class="col-lg-4 item">
                             <h3 class="big-header">
-                                @foreach ($albumList as $key => $item)
-                                @endforeach
-                                {{ count($albumList) }}
+
+                                {{ count($fotoList) }}
                             </h3>
                             <p class="paragraph">
-                                Foto
+                                foto
                             </p>
                         </div>
                         <div class="col-lg-4 item">
                             <h3 class="big-header">
-                                Album
+                                {{ $totalAlbumCount }}
                             </h3>
                             <p class="paragraph">
-                                {{-- {{ Auth::user()->nama }} --}}
+                                Album
                             </p>
                         </div>
                         <div class="col-lg-4 item">
@@ -58,10 +57,10 @@
                 <div class="col-lg-12">
                     <img src="{{ asset('images/star.png') }}" height="42" alt="" class="mb-16">
                     <h3 class="big-header">
-                        Foto Yang Anda Suka
+                        Foto Yang Anda Miliki
                     </h3>
                     <p class="paragraph">
-                        Beberapa foto yang anda suka
+                        Beberapa foto yang anda Miliki
 
                     </p>
                 </div>
@@ -76,35 +75,32 @@
             </div>
             <div class="row">
 
-                @foreach ($albumList as $item)
+                @foreach ($fotoList as $item)
                     <div class="col-lg-3">
                         <div class="item">
-                            
                             <a href="">
-
-                                @if ($item->image != '')
-                                    <img src="{{ $item->image }}" alt="" class="img-fluid">
+                                @if ($item->lokasi != '')
+                                    <img src="{{ $item->lokasi }}" alt="" class="img-fluid">
                                 @else
                                     <img src="{{ asset('images/image-not.png') }}" alt="" class="img-fluid">
                                 @endif
                             </a>
                             <div class="info">
-                                <a href="/details/{{ $item->id }}">
+                                <a href="show/{{ $item->id }}">
                                     <h3 class="small-header mb-2">
-                                        {{ $item->nama }}
+                                        {{ $item->name }}
                                     </h3>
                                 </a>
                                 <div class="footer">
                                     <div class="location d-flex flex-row ">
                                         <img src="{{ asset('images/ic_loc.svg') }}" height="20" alt="">
                                         <p class="small-paragraph mb-0">
-                                                {{ $item->user->namalengkap }} - {{ $item->fotos_count }} Foto
+                                            {{ $item->album->nama }} - {{ count($item->komentarfoto) }} Komen
                                         </p>
                                     </div>
                                     <div class="price">
                                         <p class="mb-0">
-                                            {{ $item->tanggal }}
-
+                                            {{ count($item->likefoto) }} 🩷
                                         </p>
                                     </div>
                                     <div class="clear"></div>
@@ -113,6 +109,9 @@
                         </div>
                     </div>
                 @endforeach
+
+
+
             </div>
         </div>
     </section>

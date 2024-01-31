@@ -25,7 +25,7 @@ class Album extends Model
         return $this->belongsTo(User::class, 'UserID', 'id');
     }
     
-    public function fotos()
+    public function foto()
     {
         return $this->hasMany(Foto::class, 'AlbumID', 'id');
     }

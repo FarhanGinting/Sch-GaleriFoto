@@ -28,6 +28,11 @@ class Foto extends Model
     {
         return $this->hasMany(Likefoto::class, 'FotoID', 'id');
     }
+
+    public function komentarfoto()
+    {
+        return $this->hasMany(Komentarfoto::class, 'FotoID', 'id');
+    }
     
     public function user()
     {
