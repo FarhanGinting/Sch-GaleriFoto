@@ -59,7 +59,8 @@ class FotoController extends Controller
      */
     public function show(string $id)
     {
-
+        $fotoDetails = Foto::with(['user', 'album', 'likefoto', 'komentarfoto'])->findOrFail($id);
+        return view('galleryfoto.details', ['fotoDetails' => $fotoDetails]);
     }
 
     /**

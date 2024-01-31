@@ -17,8 +17,7 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        $album = Album::with(['user'])->withCount('fotos')->get();
-        return view('galleryfoto.index', ['albumList' => $album]);
+        
     }
 
     /**
@@ -26,9 +25,7 @@ class AlbumController extends Controller
      */
     public function create()
     {
-        $albumCB = Album::select('id', 'nama')->get();
-        $UserCB = User::select('id', 'name')->get();
-        return view('galleryfoto.add', ['albumCB' => $albumCB, 'userCB' => $UserCB]);
+        
     }
 
     /**
@@ -36,21 +33,7 @@ class AlbumController extends Controller
      */
     public function store(Request $request)
     {
-        $save_url = '';
-        if ($request->file('foto')) {
-            $manager = new ImageManager(new Driver());
-            $extension = $request->file('foto')->getClientOriginalExtension();
-            $newName = $request->AlbumID . '-' . now()->timestamp . '.' . $extension;
-            $img = $manager->read($request->file('foto'));
-            $img = $img->resize(1920, 1080);
-
-            $img->toJpeg(80)->save(base_path('public/uploads/perjalanan'. $newName));
-            $save_url = 'uploads/perjalanan/'. $newName;
-        }
-        $request['lokasi'] = $save_url;
-        $Foto = Foto::create($request->all());
-
-        return redirect('/');
+        
     }
 
     /**
@@ -58,8 +41,7 @@ class AlbumController extends Controller
      */
     public function show($id)
     {
-        $albumDetails = Album::with(['user', 'fotos'])->findOrFail($id);
-        return view('galleryfoto.details', ['albumDetails' => $albumDetails]);
+        
     }
 
     /**
