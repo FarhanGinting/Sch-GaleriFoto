@@ -19,3 +19,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [FotoController::class,  'index'])->name('index');
 Route::resource('/foto', FotoController::class);
+Route::get('/showdeleted', [FotoController::class, 'showdeleted'])->name('showdeleted');
+Route::get('/{id}/restore', [FotoController::class, 'restore']);

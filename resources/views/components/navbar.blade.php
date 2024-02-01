@@ -20,7 +20,7 @@
                     <a class="nav-link " href="">Galeri Foto</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">Histori Hapus</a>
+                    <a class="nav-link {{ request()->is('showdeleted') ? 'active' : '' }}" href="{{ route('showdeleted') }}">Histori Hapus</a>
                 </li>                
             </ul>
             <ul class="navbar-nav mb-2 mb-lg-0">

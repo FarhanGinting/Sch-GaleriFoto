@@ -6,6 +6,7 @@ use App\Models\Foto;
 use App\Models\User;
 use App\Models\Album;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 
@@ -114,8 +115,22 @@ class FotoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+
     public function destroy(string $id)
     {
-        //
+        $deleteFoto = Foto::findOrFail($id);
+        $deleteFoto->delete();
+        return redirect('/');
+    }
+
+    public function showdeleted(){
+        $deleteFoto = Foto::with(['user', 'album'])->withTrashed()->get();
+        return view('galleryfoto.listdeleted', ['deleteList' => $deleteFoto]);
+    }
+
+    public function restore($id)
+    {
+        $deleteFoto = Foto::withTrashed()->where('id', $id)->restore();
+        return redirect('/');
     }
 }
