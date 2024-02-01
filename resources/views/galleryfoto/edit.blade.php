@@ -1,7 +1,8 @@
 @extends('layouts.bone')
-@section('title', 'Add New')
+@section('title', 'Edit Data')
 @section('content')
     @include('components.navbar')
+
     <section class="section">
         <div class="row mx-auto p-5">
 
@@ -9,41 +10,45 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title mt-3 mb-4">Form Foto</h5>
+                        <h5 class="card-title mt-3 mb-4">Form Edit Data</h5>
 
                         <!-- Vertical Form -->
-                        <form method="POST" action="{{ route('foto.store') }}" class="row g-3 " enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('foto.update', $foto->id) }}" class="row g-3 " enctype="multipart/form-data">
                             @csrf
-
+                            @method('put')
                             <div class="col-12">
                                 <label class="form-label">Judul Foto</label>
                                 <div class="input-group has-validation">
                                     <span class="input-group-text" id="inputGroupPrepend">📷</span>
-                                    <input type="text" name="name" id="name" class="form-control">
+                                    <input type="text" name="name" id="name" class="form-control"
+                                        value="{{ $foto->name }}">
                                 </div>
                             </div>
 
                             <div class="col-12">
                                 <label class="form-label">Deskripsi Foto</label>
-                                <input type="text" name="deskripsi" class="form-control" id="deskripsi" required>
+                                <input type="text" name="deskripsi" class="form-control" id="deskripsi"
+                                    value="{{ $foto->deskripsi }}">
 
                             </div>
 
                             <div class="col-12">
                                 <label class="form-label">Tanggal</label>
-                                <input type="date" name="tanggal" class="form-control" id="tanggal" required>
+                                <input type="date" name="tanggal" class="form-control" id="tanggal"
+                                    value="{{ $foto->tanggal }}">
                             </div>
 
                             <div class="col-12">
                                 <label class="form-label">Lokasi Foto</label>
-                                <input type="file" name="foto" class="form-control" id="foto">
+                                <input type="file" name="foto" class="form-control" id="foto"
+                                    value="{{ $foto->lokasi }}">
                             </div>
 
                             <div class="col-12">
                                 <label class="form-label">Lokasi Album</label>
                                 <div class="input-group has-validation">
                                     <select name="AlbumID" id="AlbumID" class="form-control">
-                                        <option value="">Pilih Album</option>
+                                       
                                         @foreach ($albumCB as $item)
                                             <option value="{{ $item->id }}">{{ $item->nama }}</option>
                                         @endforeach
@@ -54,18 +59,18 @@
                                 <label class="form-label">Username</label>
                                 <div class="input-group has-validation">
                                     <select name="UserID" id="UserID" class="form-control">
-                                        <option value="">Pilih User</option>
+
                                         @foreach ($userCB as $item)
                                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
-                            
+
 
 
                             <div class="d-flex justify-content-center column-gap-4 mt-5 mb-4">
-                                <a href="/" class="btn btn-secondary" style="float: right;">Cancel</a>
+                                <a href="{{ route('foto.show', $foto->id) }}" class="btn btn-secondary" style="float: right;">Cancel</a>
                                 <button type="submit" name="simpan" class="btn btn-primary" value="Simpan">Submit</button>
                             </div>
                         </form>

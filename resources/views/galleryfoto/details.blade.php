@@ -15,11 +15,12 @@
                     </p>
                 </div>
                 <div class="col-lg-6 header">
-
                     <h3 class="small-header">
-                        {{ $fotoDetails->likefoto_count }} 🩷 | Komen {{ $fotoDetails->fotokomen }}
+                        {{ $fotoDetails->likefoto_count }} <a href=""> 🩷 </a>|
+                        {{ $fotoDetails->komentarfoto_count }}<a href=""> 💬 </a>
                     </h3>
                 </div>
+
             </div>
             <div class="row gallery justify-content-center">
                 <div class="col-lg-6 mb-5">
@@ -40,8 +41,8 @@
                     <div class="row features">
                         <div class="col-lg-12">
                             <div class="row ">
-                                <div class="col-lg-4">
-                                    <img src="{{ asset('images/date.png') }}" class="icon" alt="">
+                                <div class="col-lg-8 mb-5">
+                                    <img src="{{ asset('images/information.png') }}" class="icon" alt="">
                                     <div class="info">
                                         <h3 class="small-header mt-4">
                                             {{ $fotoDetails->deskripsi }}
@@ -49,16 +50,16 @@
 
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
-                                    <img src="{{ asset('images/time.png') }}" class="icon" alt="">
+                                <div class="col-lg-8 mb-5">
+                                    <img src="{{ asset('images/timetable.png') }}" class="icon" alt="">
                                     <div class="info">
                                         <h3 class="small-header mt-4">
                                             {{ $fotoDetails->tanggal }}
                                         </h3>
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
-                                    <img src="{{ asset('images/time.png') }}" class="icon" alt="">
+                                <div class="col-lg-8 mb-5">
+                                    <img src="{{ asset('images/folder.png') }}" class="icon" alt="">
                                     <div class="info">
                                         <h3 class="small-header mt-4">
                                             {{ $fotoDetails->lokasi }}
@@ -93,14 +94,13 @@
                                 </div>
                                 <div class="col-lg-3">
                                     <div class="info">
-                                        <a href=""
-                                            type="submit" class="btn btn-warning w-100 mt-3">Edit Data</a>
+                                        <a href="{{ route('foto.edit', $fotoDetails->id) }}" type="submit"
+                                            class="btn btn-warning w-100 mt-3">Edit Data</a>
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
                                     <div class="info">
-                                        <a href=""
-                                            type="submit" class="btn btn-primary w-100 mt-3">Export PDF</a>
+                                        <a href="" type="submit" class="btn btn-primary w-100 mt-3">Export PDF</a>
                                     </div>
                                 </div>
                             </div>

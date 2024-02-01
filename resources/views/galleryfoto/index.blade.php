@@ -15,7 +15,7 @@
                         Simpan Foto Tanpa Batas, Cepat, dan <br>Mudah Bersama Layanan Kami!
 
                     </p>
-                    <p class="mb-50"><a href="{{ route('create') }}" class="btn btn-primary">Upload Foto</a></p>
+                    <p class="mb-50"><a href="{{ route('foto.create') }}" class="btn btn-primary">Upload Foto</a></p>
                     <div class="row stats text-center">
                         <div class="col-lg-4 item">
                             <h3 class="big-header">
@@ -78,7 +78,7 @@
                 @foreach ($fotoList as $item)
                     <div class="col-lg-3">
                         <div class="item">
-                            <a href="">
+                            <a href="{{ route('foto.show', $item->id) }}">
                                 @if ($item->lokasi != '')
                                     <img src="{{ $item->lokasi }}" alt="" class="img-fluid">
                                 @else
@@ -86,7 +86,7 @@
                                 @endif
                             </a>
                             <div class="info">
-                                <a href="show/{{ $item->id }}">
+                                <a href="{{ route('foto.show', $item->id) }}">
                                     <h3 class="small-header mb-2">
                                         {{ $item->name }}
                                     </h3>
