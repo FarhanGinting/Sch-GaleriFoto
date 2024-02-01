@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Album;
 use App\Models\Foto;
-use App\Models\User;
+use App\Models\Album;
 use Illuminate\Http\Request;
-use Intervention\Image\ImageManager;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Drivers\Gd\Driver;
 
 class AlbumController extends Controller
 {
@@ -17,7 +14,16 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        
+        $albums = Album::with(['user'])
+            ->withCount('foto')
+            ->addSelect(['last_foto' => Foto::select('lokasi')
+                    ->whereColumn('AlbumID', 'album.id')
+                    ->latest()
+                    ->limit(1),
+            ])
+            ->get();
+
+        return view('galleryalbum.index', ['albumList' => $albums]);
     }
 
     /**
@@ -25,7 +31,7 @@ class AlbumController extends Controller
      */
     public function create()
     {
-        
+
     }
 
     /**
@@ -33,7 +39,7 @@ class AlbumController extends Controller
      */
     public function store(Request $request)
     {
-        
+
     }
 
     /**
@@ -41,7 +47,7 @@ class AlbumController extends Controller
      */
     public function show($id)
     {
-        
+
     }
 
     /**

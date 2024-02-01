@@ -124,7 +124,7 @@ class FotoController extends Controller
     }
 
     public function showdeleted(){
-        $deleteFoto = Foto::with(['user', 'album'])->withTrashed()->get();
+        $deleteFoto = Foto::with(['user', 'album'])->onlyTrashed()->get();
         return view('galleryfoto.listdeleted', ['deleteList' => $deleteFoto]);
     }
 
