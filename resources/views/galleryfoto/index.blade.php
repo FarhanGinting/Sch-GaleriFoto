@@ -39,7 +39,7 @@
                                 Welcome
                             </h3>
                             <p class="paragraph">
-                                {{-- {{ Auth::user()->email }} --}}
+                                {{ Auth::user()->name }}
                             </p>
                         </div>
                     </div>

@@ -16,8 +16,8 @@
                 </div>
                 <div class="col-lg-6 header">
                     <h3 class="small-header">
-                        {{ $fotoDetails->likefoto_count }} <a href=""> 🩷 </a>|
-                        {{ $fotoDetails->komentarfoto_count }}<a href=""> 💬 </a>
+                        {{ $fotoDetails->likefoto_count }} 🩷
+                        {{-- {{ $fotoDetails->komentarfoto_count }} <a href="{{ route('like.store') }}">💬</a> --}}
                     </h3>
                 </div>
 

@@ -27,9 +27,16 @@ class LikeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
+        // Anda perlu menyesuaikan ini sesuai dengan kebutuhan aplikasi Anda
+        $like = new Likefoto([
+            'FotoID' => $id,
+            // tambahkan data likefoto yang diperlukan
+        ]);
+        $like->save();
+
+        return redirect()->back();
     }
 
     /**

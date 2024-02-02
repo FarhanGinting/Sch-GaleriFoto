@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\AlbumController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FotoController;
 use App\Http\Controllers\LikeController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AlbumController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +17,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/login', [AuthController::class, 'authenticating']);
+Route::get('/logout', [AuthController::class, 'logout']);
 
-Route::get('/', [FotoController::class,  'index'])->name('index');
+Route::get('/', [FotoController::class,  'index'])->name('index')->middleware('auth');
 Route::get('/album', [AlbumController::class,  'index'])->name('album.index');
 Route::resource('/foto', FotoController::class);
+Route::resource('/like', LikeController::class);
 Route::get('/showdeleted', [FotoController::class, 'showdeleted'])->name('showdeleted');
 Route::get('/{id}/restore', [FotoController::class, 'restore']);

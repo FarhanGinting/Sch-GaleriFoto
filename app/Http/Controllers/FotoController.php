@@ -6,8 +6,9 @@ use App\Models\Foto;
 use App\Models\User;
 use App\Models\Album;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManager;
+use Illuminate\Support\Facades\Session;
 use Intervention\Image\Drivers\Gd\Driver;
 
 class FotoController extends Controller
@@ -65,8 +66,9 @@ class FotoController extends Controller
      */
     public function show(string $id)
     {
+        $user = Auth::user();
         $fotoDetails = Foto::with(['user', 'album'])->withCount(['likefoto', 'komentarfoto']) ->findOrFail($id);
-        return view('galleryfoto.details', ['fotoDetails' => $fotoDetails]);
+        return view('galleryfoto.details', ['fotoDetails' => $fotoDetails, 'user' => $user]);
     }
     
 
