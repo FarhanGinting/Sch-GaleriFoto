@@ -95,12 +95,12 @@
                                     <div class="location d-flex flex-row ">
                                         <img src="{{ asset('images/ic_loc.svg') }}" height="20" alt="">
                                         <p class="small-paragraph mb-0">
-                                            {{ $item->album->nama }} - {{ count($item->komentarfoto) }} Komen
+                                            {{ $item->album->nama }}
                                         </p>
                                     </div>
                                     <div class="price">
                                         <p class="mb-0">
-                                            {{ count($item->likefoto) }} 🩷
+                                            {{ count($item->likefoto) }} 🩷 {{ count($item->komentarfoto) }} <i class="fa-solid fa-comments" style="color: #74C0FC;"></i>
                                         </p>
                                     </div>
                                     <div class="clear"></div>

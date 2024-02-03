@@ -17,7 +17,9 @@
                     </p>
                 </div>
             </div>
-            <div class="my-3 mb-5 d-flex justify-content-end">
+
+            <div class="my-3 mb-5 d-flex justify-content-between">
+                <p class=""><a href="{{ route('album.create') }}" class="btn btn-primary">Tambah Album</a></p>
                 <form action="" method="get">
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" name="keyword" placeholder="Search">
@@ -25,7 +27,8 @@
                     </div>
                 </form>
             </div>
-            <<div class="row">
+
+            <div class="row">
                 @foreach ($albumList as $album)
                     <div class="col-lg-3">
                         <div class="item">
@@ -37,7 +40,7 @@
                                 <img src="{{ asset('images/image-not.png') }}" alt="" class="img-fluid">
                             @endif
                             <div class="info">
-                                <a href="{{ route('foto.show', $album->id) }}">
+                                <a href="">
                                     <h3 class="small-header mb-2">
                                         {{ $album->nama }}
                                     </h3>
@@ -60,7 +63,7 @@
                         </div>
                     </div>
                 @endforeach
-        </div>
+            </div>
 
 
 

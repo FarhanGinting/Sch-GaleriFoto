@@ -23,8 +23,8 @@ Route::post('/login', [AuthController::class, 'authenticating']);
 Route::get('/logout', [AuthController::class, 'logout']);
 
 Route::get('/', [FotoController::class,  'index'])->name('index')->middleware('auth');
-Route::get('/album', [AlbumController::class,  'index'])->name('album.index');
 Route::resource('/foto', FotoController::class);
+Route::resource('/album', AlbumController::class);
 Route::resource('/like', LikeController::class);
 Route::resource('/komentar', KomentarController::class);
 Route::get('/showdeleted', [FotoController::class, 'showdeleted'])->name('showdeleted');

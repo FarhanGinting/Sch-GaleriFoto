@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Foto;
 use App\Models\Album;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -31,7 +32,8 @@ class AlbumController extends Controller
      */
     public function create()
     {
-
+        $userCB = User::select('id', 'name')->get();
+        return view('galleryalbum.add', ['userCB' => $userCB]);
     }
 
     /**
@@ -39,7 +41,8 @@ class AlbumController extends Controller
      */
     public function store(Request $request)
     {
-
+        $addalbums = Album::create($request->all());
+        return redirect('/');
     }
 
     /**
