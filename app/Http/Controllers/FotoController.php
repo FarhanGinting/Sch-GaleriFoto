@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Album;
 use App\Models\Foto;
 use App\Models\User;
-use App\Models\Album;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Intervention\Image\ImageManager;
-use Illuminate\Support\Facades\Session;
 use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 
 class FotoController extends Controller
 {
@@ -47,18 +46,13 @@ class FotoController extends Controller
             $img = $manager->read($request->file('foto'));
             $img = $img->resize(1920, 1080);
 
-            $img->toJpeg(80)->save(base_path('public/upload/foto/'. $newName));
-            $save_url = 'upload/foto/'. $newName;
+            $img->toJpeg(80)->save(base_path('public/upload/foto/' . $newName));
+            $save_url = 'upload/foto/' . $newName;
         }
         $request['lokasi'] = $save_url;
         $Foto = Foto::create($request->all());
 
         return redirect('/');
-    }
-
-    public function storeLike(Request $request)
-    {
-        
     }
 
     /**
@@ -67,10 +61,9 @@ class FotoController extends Controller
     public function show(string $id)
     {
         $user = Auth::user();
-        $fotoDetails = Foto::with(['user', 'album'])->withCount(['likefoto', 'komentarfoto']) ->findOrFail($id);
+        $fotoDetails = Foto::with(['user', 'album', 'komentarfoto'])->withCount(['likefoto', 'komentarfoto'])->findOrFail($id);
         return view('galleryfoto.details', ['fotoDetails' => $fotoDetails, 'user' => $user]);
     }
-    
 
     /**
      * Show the form for editing the specified resource.
@@ -81,7 +74,7 @@ class FotoController extends Controller
         $userCB = User::select('id', 'name')->get();
         $foto = Foto::findOrFail($id);
         return view('galleryfoto.edit', ['foto' => $foto, 'albumCB' => $albumCB, 'userCB' => $userCB]);
-        
+
     }
 
     /**
@@ -103,8 +96,8 @@ class FotoController extends Controller
             $img = $manager->read($request->file('foto'));
             $img = $img->resize(1920, 1080);
 
-            $img->toJpeg(80)->save(base_path('public/upload/foto/'. $newName));
-            $save_url = 'upload/foto/'. $newName;
+            $img->toJpeg(80)->save(base_path('public/upload/foto/' . $newName));
+            $save_url = 'upload/foto/' . $newName;
             // Set nama foto baru pada request
             $request['lokasi'] = $save_url;
 
@@ -125,7 +118,8 @@ class FotoController extends Controller
         return redirect('/');
     }
 
-    public function showdeleted(){
+    public function showdeleted()
+    {
         $deleteFoto = Foto::with(['user', 'album'])->onlyTrashed()->get();
         return view('galleryfoto.listdeleted', ['deleteList' => $deleteFoto]);
     }

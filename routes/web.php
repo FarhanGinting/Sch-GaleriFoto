@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FotoController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\KomentarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,5 +26,6 @@ Route::get('/', [FotoController::class,  'index'])->name('index')->middleware('a
 Route::get('/album', [AlbumController::class,  'index'])->name('album.index');
 Route::resource('/foto', FotoController::class);
 Route::resource('/like', LikeController::class);
+Route::resource('/komentar', KomentarController::class);
 Route::get('/showdeleted', [FotoController::class, 'showdeleted'])->name('showdeleted');
 Route::get('/{id}/restore', [FotoController::class, 'restore']);

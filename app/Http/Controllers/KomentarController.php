@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Likefoto;
+use App\Models\Komentarfoto;
 use Illuminate\Http\Request;
 
-class LikeController extends Controller
+class KomentarController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-       
+        //
     }
 
     /**
@@ -28,7 +28,7 @@ class LikeController extends Controller
      */
     public function store(Request $request)
     {
-        $like = Likefoto::create($request->all());
+        $komentar = Komentarfoto::create($request->all());
 
         return redirect('/');
     }
@@ -38,7 +38,7 @@ class LikeController extends Controller
      */
     public function show(string $id)
     {
-        //
+        
     }
 
     /**
