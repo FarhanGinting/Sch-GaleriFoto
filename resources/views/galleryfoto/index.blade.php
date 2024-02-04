@@ -71,6 +71,28 @@
                         <input type="text" class="form-control" name="keyword" placeholder="Search">
                         <button class="input-group-text btn btn-warning">🔍</button>
                     </div>
+                    @if (Session::has('status'))
+                        <!-- Modal -->
+                        <div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="statusModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="statusModalLabel">Status</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        {{ Session::get('message') }}
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Tutup</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                 </form>
             </div>
             <div class="row">
@@ -100,7 +122,8 @@
                                     </div>
                                     <div class="price">
                                         <p class="mb-0">
-                                            {{ count($item->likefoto) }} 🩷 {{ count($item->komentarfoto) }} <i class="fa-solid fa-comments" style="color: #74C0FC;"></i>
+                                            {{ count($item->likefoto) }} 🩷 {{ count($item->komentarfoto) }} <i
+                                                class="fa-solid fa-comments" style="color: #74C0FC;"></i>
                                         </p>
                                     </div>
                                     <div class="clear"></div>

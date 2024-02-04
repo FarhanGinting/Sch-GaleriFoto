@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Foto;
-use App\Models\Album;
 use App\Models\User;
+use App\Models\Album;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
 class AlbumController extends Controller
@@ -42,7 +43,11 @@ class AlbumController extends Controller
     public function store(Request $request)
     {
         $albums = Album::create($request->all());
-        return redirect('/');
+        if ($albums) {
+            Session::flash('status', 'Success');
+            Session::flash('message', 'Add New Album Successfully created ! ');
+        }
+        return redirect()->route('album.index');
     }
 
     /**
@@ -71,7 +76,11 @@ class AlbumController extends Controller
     {
         $albums = Album::findOrFail($id);
         $albums->update($request->all());
-        return redirect('/');
+        if ($albums) {
+            Session::flash('status', 'Success');
+            Session::flash('message', 'Album Successfully update ! ');
+        }
+        return redirect()->route('album.index');
     }
 
     /**
@@ -81,6 +90,10 @@ class AlbumController extends Controller
     {
         $deleteAlbum = Album::findOrFail($id);
         $deleteAlbum->delete();
-        return redirect('/');
+        if ($deleteAlbum) {
+            Session::flash('status', 'Success');
+            Session::flash('message', 'Album Successfully delete ! ');
+        }
+        return redirect()->route('album.index');
     }
 }

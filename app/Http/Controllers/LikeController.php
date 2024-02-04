@@ -29,7 +29,10 @@ class LikeController extends Controller
     public function store(Request $request)
     {
         $like = Likefoto::create($request->all());
-
+        if ($like) {
+            Session::flash('status', 'Success');
+            Session::flash('message', 'Add New Like Successfully created ! ');
+        }
         return redirect('/');
     }
 

@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Album;
 use App\Models\Foto;
 use App\Models\User;
+use App\Models\Album;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
+use Illuminate\Support\Facades\Session;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class FotoController extends Controller
 {
@@ -51,6 +52,10 @@ class FotoController extends Controller
         }
         $request['lokasi'] = $save_url;
         $Foto = Foto::create($request->all());
+        if ($Foto) {
+            Session::flash('status', 'Success');
+            Session::flash('message', 'Add New Foto Successfully created ! ');
+        }
 
         return redirect('/');
     }
@@ -110,6 +115,10 @@ class FotoController extends Controller
         }
         // Lakukan update data fo$foto
         $foto->update($request->all());
+        if ($foto) {
+            Session::flash('status', 'Success');
+            Session::flash('message', 'Foto Successfully update ! ');
+        }
         return redirect('/');
     }
 
@@ -127,6 +136,10 @@ class FotoController extends Controller
     {
         $deleteFoto = Foto::findOrFail($id);
         $deleteFoto->delete();
+        if ($deleteFoto) {
+            Session::flash('status', 'Success');
+            Session::flash('message', 'Foto Successfully delete ! ');
+        }
         return redirect('/');
     }
 
@@ -139,6 +152,10 @@ class FotoController extends Controller
     public function restore($id)
     {
         $deleteFoto = Foto::withTrashed()->where('id', $id)->restore();
+        if ($deleteFoto) {
+            Session::flash('status', 'Success');
+            Session::flash('message', 'Success Restore Data');
+        }
         return redirect('/');
     }
 }

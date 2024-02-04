@@ -29,7 +29,10 @@ class KomentarController extends Controller
     public function store(Request $request)
     {
         $komentar = Komentarfoto::create($request->all());
-
+        if ($komentar) {
+            Session::flash('status', 'Success');
+            Session::flash('message', 'Add New Komentar Successfully created ! ');
+        }
         return redirect('/');
     }
 
