@@ -20,8 +20,11 @@
                     <a class="nav-link {{ request()->is('album') ? 'active' : '' }}" aria-current="page" href="{{ route('album.index') }}" href="">Galeri Album</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('showdeleted') ? 'active' : '' }}" href="{{ route('showdeleted') }}">Histori Hapus</a>
-                </li>                
+                    @if(auth()->check() && (auth()->user()->role_id == 1))
+                        <a class="nav-link {{ request()->is('showdeleted') ? 'active' : '' }}" href="{{ route('showdeleted') }}">Histori Hapus</a>
+                    @endif
+                </li>
+                              
             </ul>
             <ul class="navbar-nav mb-2 mb-lg-0">
                 <li class="nav-item">

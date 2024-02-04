@@ -10,6 +10,7 @@ use App\Models\Komentarfoto;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -30,6 +31,7 @@ class User extends Authenticatable
         'password',
         'namalengkap',
         'alamat',
+        'role_id',
     ];
 
     /**
@@ -73,4 +75,8 @@ class User extends Authenticatable
         return $this->hasMany(Foto::class, 'UserID', 'id');
     }
 
+    public function role()
+    {
+        return $this->belongsTo(Roles::class, 'role_id', 'id');
+    }
 }
