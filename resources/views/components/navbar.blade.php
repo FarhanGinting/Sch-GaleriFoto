@@ -14,7 +14,7 @@
                     <a class="nav-link {{ request()->is('/') ? 'active' : '' }}" aria-current="page" href="{{ route('index') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">Table</a>
+                    <a class="nav-link {{ request()->is('table') ? 'active' : '' }}" aria-current="page" href="{{ route('foto.table') }}">Table</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ request()->is('album') ? 'active' : '' }}" aria-current="page" href="{{ route('album.index') }}" href="">Galeri Album</a>

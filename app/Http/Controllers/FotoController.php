@@ -65,6 +65,12 @@ class FotoController extends Controller
         return view('galleryfoto.details', ['fotoDetails' => $fotoDetails, 'user' => $user]);
     }
 
+    public function showtable()
+    {
+        $foto = Foto::with(['user', 'album'])->get();   
+        return view('galleryfoto.table', ['fotoList' => $foto]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
@@ -110,6 +116,12 @@ class FotoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+    public function delete($id)
+    {
+        $Confirmfoto = Foto::findOrFail($id);
+        return view('galleryfoto.delete', ['foto' => $Confirmfoto]);
+
+    }
 
     public function destroy(string $id)
     {

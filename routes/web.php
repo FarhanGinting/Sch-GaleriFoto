@@ -28,6 +28,8 @@ Route::middleware(['auth', 'must-admin-or-user'])->group(function () {
     Route::resource('/album', AlbumController::class);
     Route::resource('/like', LikeController::class);
     Route::resource('/komentar', KomentarController::class);
+    Route::get('/table', [FotoController::class, 'showtable'])->name('foto.table');
+    Route::get('/delete/{id}', [FotoController::class, 'delete'])->name('foto.delete');
 
     Route::middleware('must-admin')->group(function () {
         Route::get('/showdeleted', [FotoController::class, 'showdeleted'])->name('showdeleted');
