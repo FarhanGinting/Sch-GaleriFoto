@@ -61,13 +61,10 @@
                                     </select>
                                 </div>
                             </div>
-                            
-
-
                             <div class="d-flex justify-content-center column-gap-4 mt-5 mb-4">
-                                <a href="/" class="btn btn-secondary" style="float: right;">Cancel</a>
+                                <a href="/" class="btn btn-secondary" style="margin-right: 20px;">Cancel</a>
                                 <button type="submit" name="simpan" class="btn btn-primary" value="Simpan">Submit</button>
-                            </div>
+                            </div>    
                         </form>
                         <!-- Vertical Form -->
                     </div>

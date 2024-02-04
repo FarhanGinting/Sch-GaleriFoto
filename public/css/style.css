@@ -16,10 +16,6 @@
     --fwlight: 300;
 }
 
-body {
-    font-family: 'Poppins', sans-serif;
-}
-
 a {
     text-decoration: none;
 }
@@ -233,6 +229,10 @@ transition: all 0.3s ease;
     border: 1px solid var(--softgray2);
     border-radius: 16px;
 }
+
+/* ... tambahkan aturan @font-face untuk berat dan gaya huruf lainnya sesuai kebutuhan ... */
+
+
 
 .house-details .house-informations .booking .item .title {
 
