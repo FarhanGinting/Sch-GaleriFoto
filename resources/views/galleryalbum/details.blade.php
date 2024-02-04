@@ -84,7 +84,7 @@
                                 </div>
                                 <div class="col-lg-3">
                                     <div class="info">
-                                        <a href="" type="submit" class="btn btn-primary w-100 mt-3">Export
+                                        <a href="{{ route('album.exportPdfDetails', $albumDetails->id) }}" type="submit" class="btn btn-primary w-100 mt-3">Export
                                             PDF</a>
                                     </div>
                                 </div>

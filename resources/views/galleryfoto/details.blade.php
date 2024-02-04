@@ -5,7 +5,7 @@
 
     <section class="house-details pb-5">
         <div class="container">
-{{-- Modal Like --}}
+            {{-- Modal Like --}}
             <div class="modal fade" id="openlikeModal" tabindex="-1" aria-labelledby="openlikeModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -16,9 +16,11 @@
                         <div class="modal-body d-flex justify-content-end">
                             <div class="modal-body d-flex justify-content-between">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#historilikeModal">Lihat Like</button>
-                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#addlikeModal">Tambah Like</button>
-                            </div>     
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#historilikeModal">Lihat Like</button>
+                                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                    data-bs-target="#addlikeModal">Tambah Like</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -66,8 +68,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="historilikeModalLabel">Like</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             @if ($fotoDetails->likefoto_count > 0)
@@ -86,9 +87,9 @@
                     </div>
                 </div>
             </div>
-{{-- End ModaL Like --}}
+            {{-- End ModaL Like --}}
 
-{{-- {{ Modal Komen }} --}}
+            {{-- {{ Modal Komen }} --}}
             <div class="modal fade" id="openkomentarModal" tabindex="-1" aria-labelledby="openkomentarModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
@@ -100,9 +101,11 @@
                         </div>
                         <div class="modal-body d-flex justify-content-between">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#historikomentarModal">Lihat Komen</button>
-                            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#addkomentarModal">Tambah Komen</button>
-                        </div>                        
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#historikomentarModal">Lihat Komen</button>
+                            <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                data-bs-target="#addkomentarModal">Tambah Komen</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -112,7 +115,8 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="komentarModalLabel">Tambah Komentar</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <form action="{{ route('komentar.store') }}" method="POST">
@@ -125,8 +129,8 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="UserID" class="form-label">Nama Pengguna</label>
-                                    <input type="text" name="UserID" id="UserID" value="{{ Auth::user()->name }}"
-                                        class="form-control" readonly>
+                                    <input type="text" name="UserID" id="UserID"
+                                        value="{{ Auth::user()->name }}" class="form-control" readonly>
                                     <input type="hidden" name="UserID" value="{{ Auth::user()->id }}">
                                 </div>
                                 <div class="mb-3">
@@ -174,8 +178,8 @@
                     </div>
                 </div>
             </div>
-{{-- {{ End Modal Komen }} --}}
-            
+            {{-- {{ End Modal Komen }} --}}
+
             <div class="row align-items-center mb-8">
                 <div class="col-lg-6">
                     <h1 class="jumbo-header">
@@ -187,7 +191,8 @@
                 </div>
                 <div class="col-lg-6 header">
                     <h3 class="small-header">
-                        {{ $fotoDetails->likefoto_count }} <a data-bs-toggle="modal" data-bs-target="#openlikeModal"> 💗</a>
+                        {{ $fotoDetails->likefoto_count }} <a data-bs-toggle="modal" data-bs-target="#openlikeModal">
+                            💗</a>
                         {{ $fotoDetails->komentarfoto_count }} <a data-bs-toggle="modal"
                             data-bs-target="#openkomentarModal"> 💬</a>
                     </h3>
@@ -272,7 +277,8 @@
                                 </div>
                                 <div class="col-lg-3">
                                     <div class="info">
-                                        <a href="" type="submit" class="btn btn-primary w-100 mt-3">Export
+                                        <a href="{{ route('foto.exportPdfDetails', $fotoDetails->id) }}" type="submit"
+                                            class="btn btn-primary w-100 mt-3">Export
                                             PDF</a>
                                     </div>
                                 </div>

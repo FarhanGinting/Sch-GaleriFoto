@@ -33,9 +33,12 @@ Route::middleware(['auth', 'must-admin-or-user'])->group(function () {
     Route::resource('/komentar', KomentarController::class);
     Route::get('/table', [FotoController::class, 'showtable'])->name('foto.table');
     Route::get('/delete/{id}', [FotoController::class, 'delete'])->name('foto.delete');
+    Route::get('/exportalbum/{id}', [AlbumController::class, 'exportPdfDetails'])->name('album.exportPdfDetails');
+    Route::get('/exportfoto/{id}', [FotoController::class, 'exportfotoPdfDetails'])->name('foto.exportPdfDetails');
 
     Route::middleware('must-admin')->group(function () {
         Route::get('/showdeleted', [FotoController::class, 'showdeleted'])->name('showdeleted');
         Route::get('/{id}/restore', [FotoController::class, 'restore']);
+        
     });
 });

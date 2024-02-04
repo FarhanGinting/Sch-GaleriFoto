@@ -6,6 +6,8 @@ use App\Models\Foto;
 use App\Models\User;
 use App\Models\Album;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManager;
 use Illuminate\Support\Facades\Session;
@@ -157,5 +159,11 @@ class FotoController extends Controller
             Session::flash('message', 'Success Restore Data');
         }
         return redirect('/');
+    }
+
+    public function exportfotoPdfDetails($id){
+        $fotoexport = Foto::with(['album'])->withCount(['likefoto', 'komentarfoto'])->findOrFail($id);
+        $pdf = Pdf::loadView('pdf.export-foto-details', ['fotoDetails' => $fotoexport]);
+        return $pdf->download('export-foto-details'.Carbon::now()->timestamp.'.pdf');
     }
 }

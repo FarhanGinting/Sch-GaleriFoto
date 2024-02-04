@@ -6,6 +6,8 @@ use App\Models\Foto;
 use App\Models\User;
 use App\Models\Album;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
@@ -95,5 +97,11 @@ class AlbumController extends Controller
             Session::flash('message', 'Album Successfully delete ! ');
         }
         return redirect()->route('album.index');
+    }
+
+    public function exportPdfDetails($id){
+        $albumexport = Album::with(['user', 'foto'])->findOrFail($id);
+        $pdf = Pdf::loadView('pdf.export-album-details', ['albumDetails' => $albumexport]);
+        return $pdf->download('export-album-details'.Carbon::now()->timestamp.'.pdf');
     }
 }
