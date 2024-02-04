@@ -22,6 +22,9 @@ Route::get('/login', [AuthController::class, 'login'])->name('login')->middlewar
 Route::post('/login', [AuthController::class, 'authenticating'])->middleware('guest');
 Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth');
 
+Route::get('/register', [AuthController::class, 'register'])->middleware('guest');
+Route::post('/register', [AuthController::class, 'store'])->middleware('guest');
+
 Route::middleware(['auth', 'must-admin-or-user'])->group(function () {
     Route::get('/', [FotoController::class, 'index'])->name('index');
     Route::resource('/foto', FotoController::class);

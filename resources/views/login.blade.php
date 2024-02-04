@@ -34,6 +34,9 @@
                                         <button class="btn btn-primary w-100" type="submit">Login</button>
                                     </div>
                                 </form>
+                                <p class="text-center small mt-4">
+                                    <a href="/register" class="">Tidak Punya Akun Register Sekarang</a>
+                                </p>
                             </div>
                         </div>
                     </div>
