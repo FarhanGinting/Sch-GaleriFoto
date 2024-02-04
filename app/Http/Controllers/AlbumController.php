@@ -79,6 +79,8 @@ class AlbumController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $deleteAlbum = Album::findOrFail($id);
+        $deleteAlbum->delete();
+        return redirect('/');
     }
 }
