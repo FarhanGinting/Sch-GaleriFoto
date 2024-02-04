@@ -41,7 +41,7 @@ class AlbumController extends Controller
      */
     public function store(Request $request)
     {
-        $addalbums = Album::create($request->all());
+        $albums = Album::create($request->all());
         return redirect('/');
     }
 
@@ -50,7 +50,8 @@ class AlbumController extends Controller
      */
     public function show($id)
     {
-
+        $albums = Album::with(['foto', 'user'])->findOrFail($id);
+        return view('galleryalbum.details', ['albumDetails' => $albums]);
     }
 
     /**
@@ -58,7 +59,9 @@ class AlbumController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $userCB = User::select('id', 'name')->get();
+        $albums = Album::findOrFail($id);
+        return view('galleryalbum.edit', ['albums' => $albums, 'userCB' => $userCB]);
     }
 
     /**
@@ -66,7 +69,9 @@ class AlbumController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $albums = Album::findOrFail($id);
+        $albums->update($request->all());
+        return redirect('/');
     }
 
     /**

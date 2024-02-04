@@ -33,14 +33,14 @@
                     <div class="col-lg-3">
                         <div class="item">
                             @if ($album->last_foto)
-                                <a href="">
+                                <a href="{{ route('album.show', $album->id) }}">
                                     <img src="{{ $album->last_foto }}" alt="" class="img-fluid">
                                 </a>
                             @else
                                 <img src="{{ asset('images/image-not.png') }}" alt="" class="img-fluid">
                             @endif
                             <div class="info">
-                                <a href="">
+                                <a href="{{ route('album.show', $album->id) }}">
                                     <h3 class="small-header mb-2">
                                         {{ $album->nama }}
                                     </h3>
