@@ -34,15 +34,11 @@
                             <div class="col-12">
                                 <label class="form-label">Username</label>
                                 <div class="input-group has-validation">
-                                    <select name="UserID" id="UserID" class="form-control">
-                                        @foreach ($userCB as $item)
-                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <input type="text" name="UserName" id="UserName" class="form-control" value="{{ Auth::user()->name }}" readonly>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-center column-gap-4 mt-5 mb-4">
-                                <a href="/" class="btn btn-secondary" style="float: right;">Cancel</a>
+                                <a href="/" class="btn btn-secondary"  style="margin-right: 20px;">Cancel</a>
                                 <button type="submit" name="simpan" class="btn btn-primary" value="Simpan">Submit</button>
                             </div>
                         </form>

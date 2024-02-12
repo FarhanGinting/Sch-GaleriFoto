@@ -8,6 +8,7 @@ use App\Models\Album;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
@@ -18,7 +19,12 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        $albums = Album::with(['user'])
+        // Mendapatkan informasi pengguna yang login
+        $user = Auth::user();
+    
+        // Mengambil data album berdasarkan UserID pengguna yang login
+        $albums = Album::where('UserID', $user->id)
+            ->with(['user'])
             ->withCount('foto')
             ->addSelect(['last_foto' => Foto::select('lokasi')
                     ->whereColumn('AlbumID', 'album.id')
@@ -26,9 +32,10 @@ class AlbumController extends Controller
                     ->limit(1),
             ])
             ->get();
-
+    
         return view('galleryalbum.index', ['albumList' => $albums]);
     }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -44,6 +51,7 @@ class AlbumController extends Controller
      */
     public function store(Request $request)
     {
+        $request['UserID'] = Auth::id();
         $albums = Album::create($request->all());
         if ($albums) {
             Session::flash('status', 'Success');
@@ -77,6 +85,7 @@ class AlbumController extends Controller
     public function update(Request $request, string $id)
     {
         $albums = Album::findOrFail($id);
+        $request['UserID'] = Auth::id();
         $albums->update($request->all());
         if ($albums) {
             Session::flash('status', 'Success');

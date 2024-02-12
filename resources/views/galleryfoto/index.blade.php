@@ -19,16 +19,15 @@
                     <div class="row stats text-center">
                         <div class="col-lg-4 item">
                             <h3 class="big-header">
-
-                                {{ count($fotoList) }}
+                                {{ $totalFoto }}
                             </h3>
                             <p class="paragraph">
-                                foto
+                                Foto
                             </p>
                         </div>
                         <div class="col-lg-4 item">
                             <h3 class="big-header">
-                                {{ $totalAlbumCount }}
+                                {{ $totalAlbum }}
                             </h3>
                             <p class="paragraph">
                                 Album
@@ -43,6 +42,7 @@
                             </p>
                         </div>
                     </div>
+                    
                 </div>
                 <div class="col-lg-6">
                     <img src="{{ asset('images/Bannerweb.png') }}" alt="" class="img-fluid">

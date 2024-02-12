@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Album;
 use App\Models\Foto;
 use App\Models\User;
-use App\Models\Album;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
-use Intervention\Image\ImageManager;
 use Illuminate\Support\Facades\Session;
 use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 
 class FotoController extends Controller
 {
@@ -20,10 +20,19 @@ class FotoController extends Controller
      */
     public function index()
     {
-        $foto = Foto::with(['user', 'likefoto', 'komentarfoto'])->withCount('album')->get();
-        $totalAlbumCount = Album::count();
-        return view('galleryfoto.index', ['fotoList' => $foto, 'totalAlbumCount' => $totalAlbumCount]);
+        // Mendapatkan informasi pengguna yang login
+        $user = Auth::user();
 
+        // Menghitung total foto berdasarkan ID pengguna yang login
+        $totalFoto = Foto::where('UserID', $user->id)->count();
+
+        // Menghitung total album berdasarkan ID pengguna yang login
+        $totalAlbum = Album::where('UserID', $user->id)->count();
+
+        // Mengambil foto dengan relasi dan hitungan album
+        $foto = Foto::with(['user', 'likefoto', 'komentarfoto'])->withCount('album')->where('UserID', $user->id)->get();
+
+        return view('galleryfoto.index', ['fotoList' => $foto, 'totalFoto' => $totalFoto, 'totalAlbum' => $totalAlbum]);
     }
 
     /**
@@ -31,9 +40,17 @@ class FotoController extends Controller
      */
     public function create()
     {
-        $albumCB = Album::select('id', 'nama')->get();
-        $UserCB = User::select('id', 'name')->get();
-        return view('galleryfoto.add', ['albumCB' => $albumCB, 'userCB' => $UserCB]);
+        // Mendapatkan informasi pengguna yang login
+        $user = Auth::user();
+
+        // Mengambil data album yang dimiliki oleh UserID pengguna yang login
+        $albumCB = Album::where('UserID', $user->id)
+            ->select('id', 'nama')
+            ->get();
+
+        $userCB = User::select('id', 'name')->get();
+
+        return view('galleryfoto.add', ['albumCB' => $albumCB, 'userCB' => $userCB]);
     }
 
     /**
@@ -52,11 +69,16 @@ class FotoController extends Controller
             $img->toJpeg(80)->save(base_path('public/upload/foto/' . $newName));
             $save_url = 'upload/foto/' . $newName;
         }
+
+        // Menggunakan 'UserID' untuk menyimpan 'id' pengguna
+        $request['UserID'] = Auth::id();
         $request['lokasi'] = $save_url;
+
         $Foto = Foto::create($request->all());
+
         if ($Foto) {
             Session::flash('status', 'Success');
-            Session::flash('message', 'Add New Foto Successfully created ! ');
+            Session::flash('message', 'Add New Foto Successfully created!');
         }
 
         return redirect('/');
@@ -74,7 +96,7 @@ class FotoController extends Controller
 
     public function showtable()
     {
-        $foto = Foto::with(['user', 'album'])->get();   
+        $foto = Foto::with(['user', 'album'])->get();
         return view('galleryfoto.table', ['fotoList' => $foto]);
     }
 
@@ -83,11 +105,19 @@ class FotoController extends Controller
      */
     public function edit(string $id)
     {
-        $albumCB = Album::select('id', 'nama')->get();
-        $userCB = User::select('id', 'name')->get();
+        // Ambil data foto berdasarkan ID
         $foto = Foto::findOrFail($id);
-        return view('galleryfoto.edit', ['foto' => $foto, 'albumCB' => $albumCB, 'userCB' => $userCB]);
 
+        // Ambil data album yang dimiliki oleh pengguna yang login
+        $albumCB = Album::select('id', 'nama')
+            ->where('UserID', auth()->id()) // Filter berdasarkan ID pengguna yang login
+            ->get();
+
+        // Ambil data pengguna
+        $userCB = User::select('id', 'name')->get();
+
+        // Kirim data ke view
+        return view('galleryfoto.edit', ['foto' => $foto, 'albumCB' => $albumCB, 'userCB' => $userCB]);
     }
 
     /**
@@ -113,6 +143,7 @@ class FotoController extends Controller
             $save_url = 'upload/foto/' . $newName;
             // Set nama foto baru pada request
             $request['lokasi'] = $save_url;
+            $request['UserID'] = Auth::id();
 
         }
         // Lakukan update data fo$foto
@@ -161,9 +192,10 @@ class FotoController extends Controller
         return redirect('/');
     }
 
-    public function exportfotoPdfDetails($id){
+    public function exportfotoPdfDetails($id)
+    {
         $fotoexport = Foto::with(['album'])->withCount(['likefoto', 'komentarfoto'])->findOrFail($id);
         $pdf = Pdf::loadView('pdf.export-foto-details', ['fotoDetails' => $fotoexport]);
-        return $pdf->download('export-foto-details'.Carbon::now()->timestamp.'.pdf');
+        return $pdf->download('export-foto-details' . Carbon::now()->timestamp . '.pdf');
     }
 }

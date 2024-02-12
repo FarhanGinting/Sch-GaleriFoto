@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Likefoto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class LikeController extends Controller
 {
