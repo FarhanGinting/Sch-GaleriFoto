@@ -9,7 +9,7 @@
                         {{ $fotoDetails->name }}
                     </h1>
                     <p class="paragraph">
-                        {{ $fotoDetails->album->nama }}
+                        {{ $fotoDetails->album->nama ?? 'Tidak Masuk Album' }}
                     </p>
                 </div>
                 <div class="col-lg-6 header">

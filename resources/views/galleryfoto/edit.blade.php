@@ -48,7 +48,7 @@
                                 <label class="form-label">Lokasi Album</label>
                                 <div class="input-group has-validation">
                                     <select name="AlbumID" id="AlbumID" class="form-control">
-                                       
+                                        <option value="">Tidak Masuk Album</option>
                                         @foreach ($albumCB as $item)
                                             <option value="{{ $item->id }}">{{ $item->nama }}</option>
                                         @endforeach

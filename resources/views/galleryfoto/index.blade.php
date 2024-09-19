@@ -2,6 +2,19 @@
 @section('title', 'Dashboard')
 @section('content')
     @include('components.navbar')
+    <style>
+        .element {
+            cursor: pointer;
+            /* Mengubah cursor menjadi pointer saat mouse berada di atas elemen */
+            transition: transform 0.2s;
+            /* Efek transisi untuk animasi */
+        }
+
+        .element:active {
+            transform: scale(0.95);
+            /* Efek klik, mengurangi ukuran sedikit ketika elemen diklik */
+        }
+    </style>
     <section class="header mb-70">
         <div class="container">
             <div class="row align-items-center">
@@ -117,7 +130,7 @@
                                     <div class="location d-flex flex-row ">
                                         <img src="{{ asset('images/ic_loc.svg') }}" height="20" alt="">
                                         <p class="small-paragraph mb-0">
-                                            {{ $item->album->nama }}
+                                            {{ $item->album->nama ?? 'Tidak Masuk Album' }}
                                         </p>
                                     </div>
                                     <div class="price">

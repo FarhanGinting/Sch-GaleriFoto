@@ -22,7 +22,7 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $data->name }}</td>
                         <td>{{ $data->tanggal }}</td>
-                        <td>{{ $data->album->nama }}</td>
+                        <td>{{ $data->album->nama ?? 'Tidak Masuk Album' }}</td>
                         <td>{{ $data->user->name }}</td>
                         <td>{{ $data->deleted_at }}</td>
                         <td>

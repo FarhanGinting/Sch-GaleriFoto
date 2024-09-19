@@ -2,24 +2,30 @@
 @section('title', 'Details Album')
 @section('content')
     @include('components.navbar')
+    <style>
+        .info {
+            text-align: justify;
+        }
+    </style>
     <section class="house-details pb-5">
         <div class="container">
-            <div class="row align-items-center mb-8">
-                <div class="col-lg-6">
-                    <h1 class="jumbo-header">
-                        {{ $albumDetails->nama }}
-                    </h1>
-                    <p class="paragraph">
+            <div class="row align-items-center mb-4">
+                <div class="col-lg-12">
+                    <div class="d-flex justify-content-between">
+                        <h1 class="big-header">
+                            {{ $albumDetails->nama }}
+                        </h1>
+                        <h3 class="small-header text-start">
+                            {{ $albumDetails->user->name }}
+                        </h3>
+                    </div>
+                    <p class="paragraph info">
                         {{ $albumDetails->deskripsi }}
                     </p>
                 </div>
-                <div class="col-lg-6 header">
-                    <h3 class="small-header">
-                        {{ $albumDetails->user->name }}
-                    </h3>
-                </div>
 
             </div>
+            <hr class="mb-5" style="color: blue">
             <div class="row">
                 @foreach ($albumDetails->foto as $data)
                     <div class="col-lg-3">

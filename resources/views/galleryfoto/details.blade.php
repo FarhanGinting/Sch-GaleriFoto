@@ -3,6 +3,30 @@
 @section('content')
     @include('components.navbar')
 
+    <style>
+        .info-container {
+            display: flex;
+            align-items: flex-start;
+
+        }
+
+        .element {
+            cursor: pointer;
+            /* Mengubah cursor menjadi pointer saat mouse berada di atas elemen */
+            transition: transform 0.2s;
+            /* Efek transisi untuk animasi */
+        }
+
+        .element:active {
+            transform: scale(0.95);
+            /* Efek klik, mengurangi ukuran sedikit ketika elemen diklik */
+        }
+
+        .info h3 {
+            text-align: justify;
+        }
+
+    </style>
     <section class="house-details pb-5">
         <div class="container">
             {{-- Modal Like --}}
@@ -186,14 +210,15 @@
                         {{ $fotoDetails->name }}
                     </h1>
                     <p class="paragraph">
-                        {{ $fotoDetails->album->nama }}
+                        {{ $fotoDetails->album->nama ?? 'Tidak Masuk Album' }}
                     </p>
                 </div>
                 <div class="col-lg-6 header">
                     <h3 class="small-header">
-                        {{ $fotoDetails->likefoto_count }} <a data-bs-toggle="modal" data-bs-target="#openlikeModal">
+                        {{ $fotoDetails->likefoto_count }} <a class="element" data-bs-toggle="modal"
+                            data-bs-target="#openlikeModal">
                             💗</a>
-                        {{ $fotoDetails->komentarfoto_count }} <a data-bs-toggle="modal"
+                        {{ $fotoDetails->komentarfoto_count }} <a class="element" data-bs-toggle="modal"
                             data-bs-target="#openkomentarModal"> 💬</a>
                     </h3>
                 </div>
@@ -210,23 +235,25 @@
             </div>
 
             <div class="row house-informations justify-content-center">
-                <div class="col-lg-7">
+                <div class="col-lg-10">
 
                     <h3 class="small-header mb-4 ">
                         Keterangan
                     </h3>
                     <div class="row features">
                         <div class="col-lg-12">
-                            <div class="row ">
-                                <div class="col-lg-8 mb-5">
-                                    <img src="{{ asset('images/information.png') }}" class="icon" alt="">
-                                    <div class="info">
-                                        <h3 class="small-header mt-4">
-                                            {{ $fotoDetails->deskripsi }}
-                                        </h3>
-
+                            <div class="row">
+                                <div class="col-lg-12 mb-5">
+                                    <div class="info-container">
+                                        <img src="{{ asset('images/information.png') }}" class="icon" alt="">
+                                        <div class="info">
+                                            <h3 class="small-header mt-4">
+                                                {{ $fotoDetails->deskripsi }}
+                                            </h3>
+                                        </div>
                                     </div>
                                 </div>
+
                                 <div class="col-lg-8 mb-5">
                                     <img src="{{ asset('images/timetable.png') }}" class="icon" alt="">
                                     <div class="info">

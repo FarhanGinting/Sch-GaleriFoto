@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('foto', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
-            $table->string('deskripsi', 255);
+            $table->longText('deskripsi');
             $table->date('tanggal');
             $table->string('lokasi', 255);
             $table->unsignedBigInteger('AlbumID');
